@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://o64uw5n82fk5"]
+
+[ext_resource type="Texture2D" uid="uid://dbxr30tch46ou" path="res://textures/bird_1.png" id="1_7hsdl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mce1"]
+radius = 16.0
+height = 48.0
+
+[node name="obj_bird" type="Area2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_7hsdl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1mce1")
