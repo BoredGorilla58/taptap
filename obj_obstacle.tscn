@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0yoamiydxqxe"]
+
+[ext_resource type="Script" uid="uid://b7o2ly6osf6q4" path="res://obj_obstacle.gd" id="1_v0d1j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhu08"]
+size = Vector2(64, 512)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0d1j"]
+size = Vector2(20, 1088)
+
+[node name="obj_obstacle" type="Node2D"]
+script = ExtResource("1_v0d1j")
+
+[node name="lower" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="Polygon2D2" type="Polygon2D" parent="lower"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-56, -8, 56, -8, 56, 48, 40, 48, 40, 512, -40, 512, -40, 48, -56, 48)
+
+[node name="Polygon2D" type="Polygon2D" parent="lower"]
+color = Color(0.143391, 0.353338, 0.142934, 1)
+polygon = PackedVector2Array(-48, 0, 48, 0, 48, 40, 32, 40, 32, 512, -32, 512, -32, 40, -48, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lower"]
+position = Vector2(0, 256)
+shape = SubResource("RectangleShape2D_bhu08")
+
+[node name="upper" type="Area2D" parent="."]
+position = Vector2(0, -64)
+rotation = -3.14159
+metadata/_edit_group_ = true
+
+[node name="Polygon2D2" type="Polygon2D" parent="upper"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-48, -7.99988, 48, -8.00012, 48.0001, 47.9999, 40.0001, 47.9999, 40.0013, 512, -39.9987, 512, -39.9999, 48.0001, -47.9999, 48.0001)
+
+[node name="Polygon2D" type="Polygon2D" parent="upper"]
+color = Color(0.143391, 0.353338, 0.142934, 1)
+polygon = PackedVector2Array(-40, 9.91821e-05, 40, -0.000102997, 40.0001, 39.9999, 32.0001, 39.9999, 32.0013, 512, -31.9987, 512, -31.9999, 40.0001, -39.9999, 40.0001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upper"]
+position = Vector2(0.000649007, 256)
+shape = SubResource("RectangleShape2D_bhu08")
+
+[node name="mid" type="Area2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mid"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_v0d1j")

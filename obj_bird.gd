@@ -6,6 +6,8 @@ const TEXTURE_CLOSE = preload("res://textures/bird_2.png")
 @export var fly_force = 10.0
 @export var gravity_force = 3.0
 
+var isDead = false
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.keycode == KEY_SPACE:
@@ -18,12 +20,17 @@ func _physics_process(delta: float) -> void:
 	if velocity < 1:
 		global_position.y += gravity_force
 		$sprite.texture = TEXTURE_OPEN
+		
 	else:
 		global_position.y -= velocity
 		velocity -= 1
+	
+	global_rotation = lerp_angle(global_rotation,45,0.1)
 
 
 
 func fly():
-	velocity = fly_force
-	$sprite.texture = TEXTURE_CLOSE
+	if not isDead:
+		velocity = fly_force
+		$sprite.texture = TEXTURE_CLOSE
+		global_rotation = -45
