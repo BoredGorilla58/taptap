@@ -1,20 +1,43 @@
-[gd_scene load_steps=6 format=3 uid="uid://bv6gtpkxhx0q"]
+[gd_scene load_steps=13 format=3 uid="uid://bv6gtpkxhx0q"]
 
 [ext_resource type="PackedScene" uid="uid://o64uw5n82fk5" path="res://obj_bird.tscn" id="1_6614m"]
 [ext_resource type="Script" uid="uid://x2bdu5gbqsoi" path="res://main_level.gd" id="1_bhu08"]
 [ext_resource type="Script" uid="uid://b8vjfbprax13j" path="res://obj_bird.gd" id="2_bhu08"]
+[ext_resource type="PackedScene" uid="uid://b0yoamiydxqxe" path="res://obj_obstacle.tscn" id="4_5ymk8"]
+[ext_resource type="Texture2D" uid="uid://b853b6or6ggn1" path="res://textures/crown.png" id="8_eqmdw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bhu08"]
-font_size = 81
-outline_size = 25
+font_size = 80
+outline_size = 40
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.286275)
 shadow_offset = Vector2(9.42, 15.515)
 
+[sub_resource type="LabelSettings" id="LabelSettings_eqmdw"]
+font_size = 280
+outline_size = 60
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5fjre"]
+font_size = 24
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_eqmdw"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.643137)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uhmka"]
+gradient = SubResource("Gradient_eqmdw")
+
 [sub_resource type="LabelSettings" id="LabelSettings_05as6"]
 font_size = 116
 outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uhmka"]
+font_size = 31
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="mainLevel" type="Node2D"]
@@ -27,19 +50,23 @@ polygon = PackedVector2Array(0, 0, 0, 648, 1152, 648, 1152, 0)
 
 [node name="pipes" type="Node2D" parent="."]
 
+[node name="obj_obstacle" parent="pipes" instance=ExtResource("4_5ymk8")]
+position = Vector2(0, 320)
+
+[node name="obj_obstacle2" parent="pipes" instance=ExtResource("4_5ymk8")]
+position = Vector2(384, 320)
+
+[node name="obj_obstacle3" parent="pipes" instance=ExtResource("4_5ymk8")]
+position = Vector2(728, 320)
+
 [node name="obj_bird" parent="." instance=ExtResource("1_6614m")]
-position = Vector2(592, 328)
+position = Vector2(100.94, 315.125)
 script = ExtResource("2_bhu08")
-gravity_force = 5.0
+fly_force = 10.0
+gravity_force = 7.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-
-[node name="Spr" type="AnimatedSprite2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -62,18 +89,40 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.752941)
 
+[node name="crown" type="TextureRect" parent="CanvasLayer/scr_gameover"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.402722
+anchor_top = 0.0122963
+anchor_right = 0.5905
+anchor_bottom = 0.246728
+offset_left = 0.0639954
+offset_top = 0.0320129
+offset_right = -0.256104
+offset_bottom = -7.88007
+texture = ExtResource("8_eqmdw")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
 [node name="Label" type="Label" parent="CanvasLayer/scr_gameover"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.347111
+anchor_top = 0.185457
+anchor_right = 0.653111
+anchor_bottom = 0.355259
+offset_left = 0.12796
+offset_top = -0.176003
+offset_right = -0.384033
+offset_bottom = -0.208008
 grow_horizontal = 2
 grow_vertical = 2
-text = "GAME
-OVER"
+text = "SCORE"
 label_settings = SubResource("LabelSettings_bhu08")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="retry" type="Button" parent="CanvasLayer/scr_gameover"]
 layout_mode = 1
@@ -86,27 +135,105 @@ grow_vertical = 2
 text = "PLAY AGAIN"
 metadata/_edit_use_anchors_ = true
 
-[node name="scr_game" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Label2" type="Label" parent="CanvasLayer/scr_gameover"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.361111
+anchor_top = 0.247346
+anchor_right = 0.645111
+anchor_bottom = 0.837543
+offset_left = -3.05176e-05
+offset_top = -0.280014
+offset_right = -0.16803
+offset_bottom = 0.271973
+text = "33"
+label_settings = SubResource("LabelSettings_eqmdw")
+metadata/_edit_use_anchors_ = true
 
-[node name="score_label" type="Label" parent="CanvasLayer/scr_game"]
+[node name="old_score" type="Label" parent="CanvasLayer/scr_gameover"]
 layout_mode = 0
-offset_right = 232.0
-offset_bottom = 158.0
-text = "0"
-label_settings = SubResource("LabelSettings_05as6")
+offset_left = 480.0
+offset_top = 488.0
+offset_right = 662.0
+offset_bottom = 581.0
+text = "HIGHSCORE
+10"
+label_settings = SubResource("LabelSettings_5fjre")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="scr_game" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/scr_game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.778
+anchor_right = 1.0
+anchor_bottom = 0.321
+offset_left = -0.256042
+offset_bottom = -0.00801086
+texture = SubResource("GradientTexture1D_uhmka")
+
+[node name="score_label" type="Label" parent="CanvasLayer/scr_game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.812389
+anchor_top = 0.0246914
+anchor_right = 0.951389
+anchor_bottom = 0.268605
+offset_left = 0.12793
+offset_bottom = -0.0559998
+grow_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_05as6")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/scr_game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.96875
+anchor_top = 0.112654
+anchor_right = 0.989583
+anchor_bottom = 0.174383
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_eqmdw")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="hs_label" type="Label" parent="CanvasLayer/scr_game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9585
+anchor_top = 0.13558
+anchor_right = 0.999667
+anchor_bottom = 0.21558
+offset_left = -0.192017
+offset_top = 0.143982
+offset_right = 0.383911
+offset_bottom = 0.303986
+grow_horizontal = 0
+text = "33"
+label_settings = SubResource("LabelSettings_uhmka")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="scr_start" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [connection signal="area_entered" from="obj_bird" to="." method="_on_obj_bird_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="button_up" from="CanvasLayer/scr_gameover/retry" to="." method="_on_retry_button_up"]

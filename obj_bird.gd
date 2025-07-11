@@ -3,18 +3,19 @@ extends Area2D
 const TEXTURE_OPEN = preload("res://textures/bird_1.png")
 const TEXTURE_CLOSE = preload("res://textures/bird_2.png")
 
-@export var fly_force = 10.0
-@export var gravity_force = 3.0
+@export var fly_force = 15.0
+@export var gravity_force = 9.8
 
 var isDead = false
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == KEY_SPACE:
-			if event.pressed and velocity < 2:
-				fly()
+
 
 var velocity = 0
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("tap"):
+		if velocity < 5:
+			fly()
 
 func _physics_process(delta: float) -> void:
 	if velocity < 1:
