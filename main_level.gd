@@ -2,11 +2,14 @@ extends Node2D
 
 const SCENE_PIPE = preload("res://obj_obstacle.tscn")
 var score = 0
+
+
 func start_game():
 	pass
 
 func end_game():
-	pass
+	$CanvasLayer/scr_gameover.show()
+	$pipes.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func spawn_obstacles():
@@ -23,12 +26,15 @@ func spawn_obstacles():
 func _on_obj_bird_area_entered(area: Area2D) -> void:
 	if area.name == "mid":
 		score += 1
-		print(score)
+		$CanvasLayer/scr_game/score_label.text = str(score)
 	else:
 		$obj_bird.isDead = true
-		print("dead")
-		get_tree().paused = true
+		end_game()
 
 
 func _on_timer_timeout() -> void:
 	spawn_obstacles()
+
+
+func _on_retry_button_up() -> void:
+	get_tree().reload_current_scene()

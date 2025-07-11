@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv6gtpkxhx0q"]
+[gd_scene load_steps=6 format=3 uid="uid://bv6gtpkxhx0q"]
 
 [ext_resource type="PackedScene" uid="uid://o64uw5n82fk5" path="res://obj_bird.tscn" id="1_6614m"]
 [ext_resource type="Script" uid="uid://x2bdu5gbqsoi" path="res://main_level.gd" id="1_bhu08"]
@@ -12,7 +12,13 @@ shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.286275)
 shadow_offset = Vector2(9.42, 15.515)
 
+[sub_resource type="LabelSettings" id="LabelSettings_05as6"]
+font_size = 116
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)
+
 [node name="mainLevel" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_bhu08")
 
 [node name="sky" type="Polygon2D" parent="."]
@@ -36,8 +42,10 @@ autostart = true
 [node name="Spr" type="AnimatedSprite2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="scr_gameover" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,7 +75,7 @@ label_settings = SubResource("LabelSettings_bhu08")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/scr_gameover"]
+[node name="retry" type="Button" parent="CanvasLayer/scr_gameover"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.888889
@@ -78,5 +86,27 @@ grow_vertical = 2
 text = "PLAY AGAIN"
 metadata/_edit_use_anchors_ = true
 
+[node name="scr_game" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="score_label" type="Label" parent="CanvasLayer/scr_game"]
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 158.0
+text = "0"
+label_settings = SubResource("LabelSettings_05as6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scr_start" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="area_entered" from="obj_bird" to="." method="_on_obj_bird_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_up" from="CanvasLayer/scr_gameover/retry" to="." method="_on_retry_button_up"]
