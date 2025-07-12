@@ -24,10 +24,15 @@ func load_score():
 			print("Invalid highscore format")
 
 func start_game():
+	$CanvasLayer/scr_start.hide()
 	$CanvasLayer/scr_game.show()
+	$pipes.process_mode = Node.PROCESS_MODE_INHERIT
+	$obj_bird.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _ready() -> void:
 	load_score()
+	$pipes.process_mode = Node.PROCESS_MODE_DISABLED
+	$obj_bird.process_mode = Node.PROCESS_MODE_DISABLED
 	$CanvasLayer/scr_game/hs_label.text = str(highscore)
 	var rect = get_viewport_rect().size.x
 	for pipe in $pipes.get_children():
@@ -75,3 +80,7 @@ func _on_obj_bird_area_entered(area: Area2D) -> void:
 
 func _on_retry_button_up() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_but_play_button_down() -> void:
+	start_game()
